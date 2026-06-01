@@ -74,7 +74,7 @@ end {
         )
     }
 
-    function Quote-Yaml {
+    function ConvertTo-YamlQuotedString {
         param([AllowNull()][string]$Value)
 
         if ($null -eq $Value) {
@@ -123,14 +123,14 @@ end {
     Set-Content -LiteralPath $promptPathOut -Value $prompt -Encoding utf8 -NoNewline
 
     $meta = New-Object System.Collections.Generic.List[string]
-    $meta.Add("id: $(Quote-Yaml $id)")
-    $meta.Add("name: $(Quote-Yaml $Name)")
-    $meta.Add("name_zh: $(Quote-Yaml $NameZh)")
+    $meta.Add("id: $(ConvertTo-YamlQuotedString $id)")
+    $meta.Add("name: $(ConvertTo-YamlQuotedString $Name)")
+    $meta.Add("name_zh: $(ConvertTo-YamlQuotedString $NameZh)")
     $meta.Add("version: '1.0.0'")
-    $meta.Add("status: $(Quote-Yaml $Status)")
-    $meta.Add("category: $(Quote-Yaml $Category)")
-    $meta.Add("summary: $(Quote-Yaml $Summary)")
-    $meta.Add("summary_zh: $(Quote-Yaml $SummaryZh)")
+    $meta.Add("status: $(ConvertTo-YamlQuotedString $Status)")
+    $meta.Add("category: $(ConvertTo-YamlQuotedString $Category)")
+    $meta.Add("summary: $(ConvertTo-YamlQuotedString $Summary)")
+    $meta.Add("summary_zh: $(ConvertTo-YamlQuotedString $SummaryZh)")
 
     if ($tagList.Count -eq 0) {
         $meta.Add("tags: []")
@@ -138,7 +138,7 @@ end {
     else {
         $meta.Add("tags:")
         foreach ($tag in $tagList) {
-            $meta.Add("  - $(Quote-Yaml $tag)")
+            $meta.Add("  - $(ConvertTo-YamlQuotedString $tag)")
         }
     }
 
@@ -148,7 +148,7 @@ end {
     else {
         $meta.Add("tags_zh:")
         foreach ($tag in $tagZhList) {
-            $meta.Add("  - $(Quote-Yaml $tag)")
+            $meta.Add("  - $(ConvertTo-YamlQuotedString $tag)")
         }
     }
 
@@ -158,25 +158,25 @@ end {
     else {
         $meta.Add("inputs:")
         foreach ($inputName in $inputList) {
-            $meta.Add("  - name: $(Quote-Yaml $inputName)")
+            $meta.Add("  - name: $(ConvertTo-YamlQuotedString $inputName)")
             $meta.Add("    required: true")
             $meta.Add("    description: ''")
         }
     }
 
     $meta.Add("outputs:")
-    $meta.Add("  format: $(Quote-Yaml $Outputs)")
-    $meta.Add("language: $(Quote-Yaml $Language)")
+    $meta.Add("  format: $(ConvertTo-YamlQuotedString $Outputs)")
+    $meta.Add("language: $(ConvertTo-YamlQuotedString $Language)")
 
     if ($modelHintList.Count -gt 0) {
         $meta.Add("model_hint:")
         foreach ($modelHint in $modelHintList) {
-            $meta.Add("  - $(Quote-Yaml $modelHint)")
+            $meta.Add("  - $(ConvertTo-YamlQuotedString $modelHint)")
         }
     }
 
-    $meta.Add("created: $(Quote-Yaml $date)")
-    $meta.Add("updated: $(Quote-Yaml $date)")
+    $meta.Add("created: $(ConvertTo-YamlQuotedString $date)")
+    $meta.Add("updated: $(ConvertTo-YamlQuotedString $date)")
 
     Set-Content -LiteralPath $metaPathOut -Value ($meta -join [Environment]::NewLine) -Encoding utf8
 
