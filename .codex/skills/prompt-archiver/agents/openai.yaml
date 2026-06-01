@@ -1,0 +1,7 @@
+interface:
+  display_name: "Prompt Archiver"
+  short_description: "Normalize, classify, and store pasted prompts"
+  default_prompt: "Use $prompt-archiver to normalize this pasted prompt into Markdown, classify it, and save it into this prompt repository."
+
+policy:
+  allow_implicit_invocation: true
