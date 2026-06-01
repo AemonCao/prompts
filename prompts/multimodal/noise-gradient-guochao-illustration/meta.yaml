@@ -1,0 +1,33 @@
+id: 'multimodal.noise_gradient_guochao_illustration'
+name: 'Noise Gradient Guochao Illustration'
+name_zh: '噪点渐变国潮插画'
+version: '1.0.0'
+status: 'draft'
+category: 'multimodal'
+summary: 'Transforms an image into a geometric guochao vector illustration with soft cyan-orange macaron gradients and a gentle hand-drawn feel.'
+summary_zh: '将图片转化为几何化的国潮矢量插画，以青橙马卡龙渐变、柔和空间层次和手绘质感营造治愈氛围。'
+tags:
+  - 'multimodal'
+  - 'image-generation'
+  - 'image-editing'
+  - 'style-transfer'
+  - 'guochao'
+  - 'gradient'
+  - 'vector-art'
+tags_zh:
+  - '多模态'
+  - '图片生成'
+  - '图片编辑'
+  - '风格迁移'
+  - '国潮'
+  - '渐变'
+  - '矢量插画'
+inputs:
+  - name: 'reference image'
+    required: true
+    description: ''
+outputs:
+  format: 'image'
+language: 'zh-CN'
+created: '2026-06-02'
+updated: '2026-06-02'

@@ -1,0 +1,31 @@
+id: 'multimodal.architecture_fridge_magnet_icon'
+name: 'Architecture Fridge Magnet Icon'
+name_zh: '建筑冰箱贴图标'
+version: '1.0.0'
+status: 'draft'
+category: 'multimodal'
+summary: 'Extracts recognizable architectural features from a real photo and turns them into a simplified souvenir fridge-magnet-style icon.'
+summary_zh: '从真实照片中提取具有识别度的建筑特征，转化为简洁、略带立体感的旅行纪念品式冰箱贴图标。'
+tags:
+  - 'multimodal'
+  - 'image-editing'
+  - 'architecture'
+  - 'icon-design'
+  - 'fridge-magnet'
+  - 'souvenir'
+tags_zh:
+  - '多模态'
+  - '图片编辑'
+  - '建筑'
+  - '图标设计'
+  - '冰箱贴'
+  - '旅行纪念品'
+inputs:
+  - name: 'building photo'
+    required: true
+    description: ''
+outputs:
+  format: 'image'
+language: 'zh-CN'
+created: '2026-06-02'
+updated: '2026-06-02'

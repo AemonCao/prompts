@@ -1,0 +1,28 @@
+id: 'multimodal.dopamine_abstract_curve_vector_art'
+name: 'Dopamine Abstract Curve Vector Art'
+name_zh: '多巴胺抽象曲线矢量插画'
+version: '1.0.0'
+status: 'draft'
+category: 'multimodal'
+summary: 'Creates minimalist dopamine-colored vector art with abstract lines, curved shapes, and irregular layered color blocks on white.'
+summary_zh: '生成纯白背景上的极简多巴胺色系矢量插画，以抽象线条、曲面和不规则弧形色块构成先锋艺术效果。'
+tags:
+  - 'multimodal'
+  - 'image-generation'
+  - 'vector-art'
+  - 'abstract-art'
+  - 'dopamine-color'
+  - 'minimalism'
+tags_zh:
+  - '多模态'
+  - '图片生成'
+  - '矢量插画'
+  - '抽象艺术'
+  - '多巴胺色系'
+  - '极简主义'
+inputs: []
+outputs:
+  format: 'image'
+language: 'zh-CN'
+created: '2026-06-02'
+updated: '2026-06-02'

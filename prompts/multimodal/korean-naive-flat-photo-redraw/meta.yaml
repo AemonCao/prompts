@@ -1,0 +1,31 @@
+id: 'multimodal.korean_naive_flat_photo_redraw'
+name: 'Korean Naive Flat Photo Redraw'
+name_zh: '韩式稚拙扁平照片重绘'
+version: '1.0.0'
+status: 'draft'
+category: 'multimodal'
+summary: 'Redraws a photo in a cute Korean naive flat illustration style with rough broken black outlines, saturated color blocks, and a bright blue background.'
+summary_zh: '将照片重绘为可爱的韩式稚拙扁平插画，以粗糙间断黑色轮廓、高饱和纯色色块和亮蓝背景呈现。'
+tags:
+  - 'multimodal'
+  - 'image-editing'
+  - 'style-transfer'
+  - 'korean-illustration'
+  - 'flat-design'
+  - 'naive-art'
+tags_zh:
+  - '多模态'
+  - '图片编辑'
+  - '风格迁移'
+  - '韩式插画'
+  - '扁平设计'
+  - '稚拙艺术'
+inputs:
+  - name: 'reference photo'
+    required: true
+    description: ''
+outputs:
+  format: 'image'
+language: 'zh-CN'
+created: '2026-06-02'
+updated: '2026-06-02'

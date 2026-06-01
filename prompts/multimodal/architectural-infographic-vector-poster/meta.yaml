@@ -1,0 +1,34 @@
+id: 'multimodal.architectural_infographic_vector_poster'
+name: 'Architectural Infographic Vector Poster'
+name_zh: '建筑信息图矢量海报'
+version: '1.0.0'
+status: 'draft'
+category: 'multimodal'
+summary: 'Converts an uploaded building photo into a precise front-elevation vector infographic poster with restrained annotations and measurement lines.'
+summary_zh: '将上传的建筑照片转化为正立面二维矢量信息图海报，加入克制的标注、测量线和测绘档案式排版。'
+tags:
+  - 'multimodal'
+  - 'image-editing'
+  - 'architecture'
+  - 'infographic'
+  - 'vector-art'
+  - 'poster-design'
+tags_zh:
+  - '多模态'
+  - '图片编辑'
+  - '建筑'
+  - '信息图'
+  - '矢量插画'
+  - '海报设计'
+inputs:
+  - name: 'building photo'
+    required: true
+    description: ''
+  - name: 'building facts'
+    required: true
+    description: ''
+outputs:
+  format: 'image'
+language: 'zh-CN'
+created: '2026-06-02'
+updated: '2026-06-02'

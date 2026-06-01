@@ -1,0 +1,46 @@
+id: 'multimodal.minimalist_architectural_typography_poster'
+name: 'Minimalist Architectural Typography Poster'
+name_zh: '极简建筑文字排版海报'
+version: '1.0.0'
+status: 'draft'
+category: 'multimodal'
+summary: 'Turns a reference building into a refined vertical architectural poster with oversized background typography and restrained editorial annotations.'
+summary_zh: '将参考建筑转化为高端竖版极简海报，以建筑后方超大英文排版和克制的编辑式标注强化建筑感。'
+tags:
+  - 'multimodal'
+  - 'image-editing'
+  - 'architecture'
+  - 'poster-design'
+  - 'typography'
+  - 'minimalism'
+tags_zh:
+  - '多模态'
+  - '图片编辑'
+  - '建筑'
+  - '海报设计'
+  - '文字排版'
+  - '极简主义'
+inputs:
+  - name: 'reference image'
+    required: true
+    description: ''
+  - name: 'building name'
+    required: true
+    description: ''
+  - name: 'city'
+    required: true
+    description: ''
+  - name: 'country'
+    required: true
+    description: ''
+  - name: 'design phrase'
+    required: true
+    description: ''
+  - name: 'background word'
+    required: true
+    description: ''
+outputs:
+  format: 'image'
+language: 'zh-CN'
+created: '2026-06-02'
+updated: '2026-06-02'
