@@ -50,11 +50,14 @@ prompts/<category>/<slug>/
 
 - `id`
 - `name`
+- `name_zh`
 - `version`
 - `status`
 - `category`
 - `summary`
+- `summary_zh`
 - `tags`
+- `tags_zh`
 - `inputs`
 - `outputs`
 - `language`
@@ -65,6 +68,46 @@ prompts/<category>/<slug>/
 
 如果你在使用 Codex，可以直接使用 `prompt-archiver` skill。
 它会帮你判断提示词属于哪个分类，创建目录，把原始提示词写入 `prompt.md`，再补上对应的元数据。
+
+## 提示词目录
+
+下面的目录会根据每个提示词的 `meta.yaml` 自动生成。
+不要手动编辑生成区块，需要更新时运行：
+
+```sh
+node scripts/generate-prompt-catalog.mjs
+```
+
+检查目录是否为最新：
+
+```sh
+node scripts/generate-prompt-catalog.mjs --check
+```
+
+在新的 clone 中启用提交前自动更新目录：
+
+```sh
+node scripts/install-git-hooks.mjs
+```
+
+pre-commit hook 会从 Git 暂存区读取已暂存的 `meta.yaml`，更新中英文 README 里的目录区块，并把 README 更新加入本次提交，确保目录与提交内容一致。
+
+<!-- prompt-catalog:start -->
+<!-- 本区块由 prompts/*/*/meta.yaml 自动生成，请不要手动编辑标记之间的内容。 -->
+
+### 业务
+
+| 名称 | 状态 | 版本 | 语言 | 更新日期 | 标签 | 介绍 | 提示词 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 可复用工作流资产审计 | 草稿 | 1.0.0 | zh-CN | 2026-06-01 | 工作流审计, 自动化, 知识管理, Codex, 运营 | 审计近期工作记录，识别值得封装为 skill、子代理或自动化的重复手动流程。 | [prompt.md](prompts/business/reusable-workflow-asset-audit/prompt.md) |
+
+### 多模态
+
+| 名称 | 状态 | 版本 | 语言 | 更新日期 | 标签 | 介绍 | 提示词 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 潦草聊天表情包 | 草稿 | 1.0.0 | zh-CN | 2026-06-01 | 多模态, 图片生成, 表情包, 聊天贴纸, 风格参考, 中文 | 根据参考图生成 16 格中文聊天表情包，风格刻意保持粗糙的画图软件鼠标手绘感。 | [prompt.md](prompts/multimodal/messy-chat-sticker-pack/prompt.md) |
+
+<!-- prompt-catalog:end -->
 
 ## 设计原则
 

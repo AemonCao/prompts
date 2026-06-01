@@ -50,11 +50,14 @@ Optional files:
 
 - `id`
 - `name`
+- `name_zh`
 - `version`
 - `status`
 - `category`
 - `summary`
+- `summary_zh`
 - `tags`
+- `tags_zh`
 - `inputs`
 - `outputs`
 - `language`
@@ -65,6 +68,46 @@ Optional files:
 
 When using Codex, use the `prompt-archiver` skill to classify a pasted prompt and store it in the right folder.
 The skill creates the folder, saves the raw prompt into `prompt.md`, and writes the matching metadata.
+
+## Prompt Catalog
+
+The catalog below is generated from each prompt's `meta.yaml`.
+Do not edit the generated section manually; regenerate it instead:
+
+```sh
+node scripts/generate-prompt-catalog.mjs
+```
+
+To check whether the catalog is current:
+
+```sh
+node scripts/generate-prompt-catalog.mjs --check
+```
+
+To enable automatic catalog updates before each commit in a new clone:
+
+```sh
+node scripts/install-git-hooks.mjs
+```
+
+The pre-commit hook reads staged `meta.yaml` files from the Git index, updates the generated catalog sections in both READMEs, and stages those README updates so the catalog matches the commit.
+
+<!-- prompt-catalog:start -->
+<!-- This section is generated from prompts/*/*/meta.yaml. Do not edit between the markers. -->
+
+### Business
+
+| Name | Status | Version | Language | Updated | Tags | Summary | Prompt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Reusable Workflow Asset Audit | draft | 1.0.0 | zh-CN | 2026-06-01 | workflow-audit, automation, knowledge-management, codex, operations | Audits recent work history to identify repeated manual workflows worth packaging as skills, subagents, or automations. | [prompt.md](prompts/business/reusable-workflow-asset-audit/prompt.md) |
+
+### Multimodal
+
+| Name | Status | Version | Language | Updated | Tags | Summary | Prompt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Messy Chat Sticker Pack | draft | 1.0.0 | zh-CN | 2026-06-01 | multimodal, image-generation, stickers, chat-stickers, style-reference, zh-CN | Generates a 16-panel Chinese chat sticker pack from reference images in a deliberately crude MS Paint mouse-drawn style. | [prompt.md](prompts/multimodal/messy-chat-sticker-pack/prompt.md) |
+
+<!-- prompt-catalog:end -->
 
 ## Philosophy
 

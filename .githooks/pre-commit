@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+
+root="$(git rev-parse --show-toplevel)"
+cd "$root"
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "prompt catalog: Node.js is required to update the README catalog sections." >&2
+  echo "Install Node.js 18+ or bypass this hook only when you know the README catalog sections are current." >&2
+  exit 1
+fi
+
+if [ -n "$(git diff --name-only -- README.md README.zh-CN.md)" ]; then
+  echo "prompt catalog: README.md or README.zh-CN.md has unstaged changes." >&2
+  echo "Stage or stash those README changes before committing so the hook does not stage unrelated edits." >&2
+  exit 1
+fi
+
+node scripts/generate-prompt-catalog.mjs --source=index
+git add README.md README.zh-CN.md

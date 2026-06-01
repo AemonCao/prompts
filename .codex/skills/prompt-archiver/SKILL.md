@@ -50,8 +50,11 @@ Before writing `prompt.md`, convert the user's pasted prompt into well-formed Ma
    - category
    - English hyphen-case slug
    - readable name
+   - readable Chinese name
    - one-sentence summary
+   - one-sentence Chinese summary
    - tags
+   - Chinese tags
    - expected inputs, if any
    - expected output format
    - likely language
@@ -66,8 +69,11 @@ Before writing `prompt.md`, convert the user's pasted prompt into well-formed Ma
   -Category coding `
   -Slug code-review `
   -Name "Code Review" `
+  -NameZh "代码审查" `
   -Summary "Reviews a code diff for bugs, regressions, risks, and missing tests." `
+  -SummaryZh "审查代码差异中的缺陷、回归风险、潜在问题和缺失测试。" `
   -Tags "coding,review,quality" `
+  -TagsZh "代码,审查,质量" `
   -Inputs "diff,context" `
   -Outputs "markdown" `
   -Language "zh-CN"
@@ -82,13 +88,18 @@ Before writing `prompt.md`, convert the user's pasted prompt into well-formed Ma
 ```yaml
 id: 'coding.code_review'
 name: 'Code Review'
+name_zh: '代码审查'
 version: '1.0.0'
 status: 'draft'
 category: 'coding'
 summary: 'Reviews a code diff for bugs, regressions, risks, and missing tests.'
+summary_zh: '审查代码差异中的缺陷、回归风险、潜在问题和缺失测试。'
 tags:
   - 'coding'
   - 'review'
+tags_zh:
+  - '代码'
+  - '审查'
 inputs:
   - name: 'diff'
     required: true

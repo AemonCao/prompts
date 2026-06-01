@@ -12,8 +12,15 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$Name,
 
+    [Parameter(Mandatory = $true)]
+    [string]$NameZh,
+
     [string]$Summary = "",
+    [Parameter(Mandatory = $true)]
+    [string]$SummaryZh,
     [string]$Tags = "",
+    [Parameter(Mandatory = $true)]
+    [string]$TagsZh,
     [string]$Inputs = "",
     [string]$Outputs = "markdown",
     [string]$Language = "zh-CN",
@@ -109,6 +116,7 @@ end {
     $date = Get-Date -Format "yyyy-MM-dd"
     $id = "$Category.$($cleanSlug -replace '-', '_')"
     $tagList = Split-CommaList $Tags
+    $tagZhList = Split-CommaList $TagsZh
     $inputList = Split-CommaList $Inputs
     $modelHintList = Split-CommaList $ModelHints
 
@@ -117,10 +125,12 @@ end {
     $meta = New-Object System.Collections.Generic.List[string]
     $meta.Add("id: $(Quote-Yaml $id)")
     $meta.Add("name: $(Quote-Yaml $Name)")
+    $meta.Add("name_zh: $(Quote-Yaml $NameZh)")
     $meta.Add("version: '1.0.0'")
     $meta.Add("status: $(Quote-Yaml $Status)")
     $meta.Add("category: $(Quote-Yaml $Category)")
     $meta.Add("summary: $(Quote-Yaml $Summary)")
+    $meta.Add("summary_zh: $(Quote-Yaml $SummaryZh)")
 
     if ($tagList.Count -eq 0) {
         $meta.Add("tags: []")
@@ -128,6 +138,16 @@ end {
     else {
         $meta.Add("tags:")
         foreach ($tag in $tagList) {
+            $meta.Add("  - $(Quote-Yaml $tag)")
+        }
+    }
+
+    if ($tagZhList.Count -eq 0) {
+        $meta.Add("tags_zh: []")
+    }
+    else {
+        $meta.Add("tags_zh:")
+        foreach ($tag in $tagZhList) {
             $meta.Add("  - $(Quote-Yaml $tag)")
         }
     }
