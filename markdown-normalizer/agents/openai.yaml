@@ -1,7 +1,0 @@
-interface:
-  display_name: "Markdown Normalizer"
-  short_description: "Normalize plain text into Markdown"
-  default_prompt: "Use $markdown-normalizer to convert this plain or loosely formatted text into clean Markdown."
-
-policy:
-  allow_implicit_invocation: true
