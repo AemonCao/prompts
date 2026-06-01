@@ -1,0 +1,29 @@
+id: 'multimodal.clumsy_ms_paint_redraw'
+name: 'Clumsy MS Paint Redraw'
+name_zh: '笨拙的 MS Paint 重绘'
+version: '1.0.0'
+status: 'draft'
+category: 'multimodal'
+summary: 'Redraws a reference image in an intentionally clumsy, scribbly MS Paint style with a mouse-drawn pixel-by-pixel feel.'
+summary_zh: '将参考图以故意笨拙、潦草的 MS Paint 鼠标涂鸦风格重绘，呈现低质量的逐像素感觉。'
+tags:
+  - 'multimodal'
+  - 'image-editing'
+  - 'image-generation'
+  - 'style-transfer'
+  - 'ms-paint'
+tags_zh:
+  - '多模态'
+  - '图片编辑'
+  - '图片生成'
+  - '风格迁移'
+  - '画图软件'
+inputs:
+  - name: 'reference image'
+    required: true
+    description: ''
+outputs:
+  format: 'image'
+language: 'en-US'
+created: '2026-06-02'
+updated: '2026-06-02'

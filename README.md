@@ -105,6 +105,7 @@ The pre-commit hook reads staged `meta.yaml` files from the Git index, updates t
 
 | Name | Status | Version | Language | Updated | Tags | Summary | Prompt |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| Clumsy MS Paint Redraw | draft | 1.0.0 | en-US | 2026-06-02 | multimodal, image-editing, image-generation, style-transfer, ms-paint | Redraws a reference image in an intentionally clumsy, scribbly MS Paint style with a mouse-drawn pixel-by-pixel feel. | [prompt.md](prompts/multimodal/clumsy-ms-paint-redraw/prompt.md) |
 | Messy Chat Sticker Pack | draft | 1.0.0 | zh-CN | 2026-06-01 | multimodal, image-generation, stickers, chat-stickers, style-reference, zh-CN | Generates a 16-panel Chinese chat sticker pack from reference images in a deliberately crude MS Paint mouse-drawn style. | [prompt.md](prompts/multimodal/messy-chat-sticker-pack/prompt.md) |
 
 <!-- prompt-catalog:end -->
