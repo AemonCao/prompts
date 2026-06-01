@@ -1,0 +1,28 @@
+id: 'multimodal.messy_chat_sticker_pack'
+name: 'Messy Chat Sticker Pack'
+version: '1.0.0'
+status: 'draft'
+category: 'multimodal'
+summary: 'Generates a 16-panel Chinese chat sticker pack from reference images in a deliberately crude MS Paint mouse-drawn style.'
+tags:
+  - 'multimodal'
+  - 'image-generation'
+  - 'stickers'
+  - 'chat-stickers'
+  - 'style-reference'
+  - 'zh-CN'
+inputs:
+  - name: 'character reference image'
+    required: true
+    description: ''
+  - name: 'layout reference image'
+    required: true
+    description: ''
+  - name: 'caption lines'
+    required: true
+    description: ''
+outputs:
+  format: 'image'
+language: 'zh-CN'
+created: '2026-06-01'
+updated: '2026-06-01'
