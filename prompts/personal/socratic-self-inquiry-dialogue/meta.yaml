@@ -1,0 +1,27 @@
+id: 'personal.socratic_self_inquiry_dialogue'
+name: 'Socratic Self-Inquiry Dialogue'
+name_zh: '苏格拉底式自我探索对话'
+version: '1.0.0'
+status: 'draft'
+category: 'personal'
+summary: 'Guides a reflective Socratic dialogue that asks one adaptive question at a time before producing an insight report.'
+summary_zh: '引导一场苏格拉底式自我探索对话，每次基于上一回答追问一个问题，并在触及深层模式后输出剖析报告。'
+tags:
+  - 'personal-reflection'
+  - 'socratic-dialogue'
+  - 'self-inquiry'
+  - 'journaling'
+tags_zh:
+  - '个人反思'
+  - '苏格拉底式对话'
+  - '自我探索'
+  - '日记'
+inputs:
+  - name: 'user answers'
+    required: true
+    description: ''
+outputs:
+  format: 'markdown'
+language: 'zh-CN'
+created: '2026-06-02'
+updated: '2026-06-02'

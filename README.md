@@ -101,6 +101,12 @@ The pre-commit hook reads staged `meta.yaml` files from the Git index, updates t
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Reusable Workflow Asset Audit | draft | 1.0.0 | zh-CN | 2026-06-01 | workflow-audit, automation, knowledge-management, codex, operations | Audits recent work history to identify repeated manual workflows worth packaging as skills, subagents, or automations. | [prompt.md](prompts/business/reusable-workflow-asset-audit/prompt.md) |
 
+### Personal
+
+| Name | Status | Version | Language | Updated | Tags | Summary | Prompt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Socratic Self-Inquiry Dialogue | draft | 1.0.0 | zh-CN | 2026-06-02 | personal-reflection, socratic-dialogue, self-inquiry, journaling | Guides a reflective Socratic dialogue that asks one adaptive question at a time before producing an insight report. | [prompt.md](prompts/personal/socratic-self-inquiry-dialogue/prompt.md) |
+
 ### Multimodal
 
 | Name | Status | Version | Language | Updated | Tags | Summary | Prompt |
