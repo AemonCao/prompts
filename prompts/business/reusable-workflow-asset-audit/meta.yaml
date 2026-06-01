@@ -1,0 +1,33 @@
+id: 'business.reusable_workflow_asset_audit'
+name: 'Reusable Workflow Asset Audit'
+version: '1.0.0'
+status: 'draft'
+category: 'business'
+summary: 'Audits recent work history to identify repeated manual workflows worth packaging as skills, subagents, or automations.'
+tags:
+  - 'workflow-audit'
+  - 'automation'
+  - 'knowledge-management'
+  - 'codex'
+  - 'operations'
+inputs:
+  - name: 'recent work records'
+    required: true
+    description: ''
+  - name: 'codex sessions'
+    required: true
+    description: ''
+  - name: 'codex memories'
+    required: true
+    description: ''
+  - name: 'rollout summaries'
+    required: true
+    description: ''
+  - name: 'existing skills and automations'
+    required: true
+    description: ''
+outputs:
+  format: 'markdown'
+language: 'zh-CN'
+created: '2026-06-01'
+updated: '2026-06-01'
