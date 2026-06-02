@@ -13,7 +13,7 @@ prompts/
   personal/
   multimodal/
 snippets/
-.codex/skills/prompt-archiver/
+.agents/skills/prompt-archiver/
 ```
 
 每个提示词单独放在一个目录里：

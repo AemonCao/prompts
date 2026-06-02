@@ -13,7 +13,7 @@ prompts/
   personal/
   multimodal/
 snippets/
-.codex/skills/prompt-archiver/
+.agents/skills/prompt-archiver/
 ```
 
 Each prompt lives in its own folder:

@@ -64,7 +64,7 @@ Before writing `prompt.md`, convert the user's pasted prompt into well-formed Ma
 ```powershell
 @'
 <paste the Markdown-normalized prompt here>
-'@ | .\.codex\skills\prompt-archiver\scripts\New-PromptEntry.ps1 `
+'@ | .\.agents\skills\prompt-archiver\scripts\New-PromptEntry.ps1 `
   -Root . `
   -Category coding `
   -Slug code-review `

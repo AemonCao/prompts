@@ -23,3 +23,6 @@ Recent commits use an emoji plus Conventional Commit format, such as `✨ feat(p
 
 ## Agent-Specific Notes
 Do not edit the generated catalog block in either README by hand. Regenerate it instead, then let the hook or script stage the README updates.
+
+## Shared Skills
+Shared agent skills live in `.agents/skills/`. When a task matches a skill, read the relevant `SKILL.md` before acting. Keep skill-specific helper scripts and agent metadata inside each skill folder.
