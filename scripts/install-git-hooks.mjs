@@ -58,9 +58,11 @@ function main() {
   console.log('Installed repository Git hooks.');
   console.log('');
   console.log('Manual commands:');
-  console.log('  Generate catalog: node scripts/generate-prompt-catalog.mjs');
-  console.log('  Check catalog:    node scripts/generate-prompt-catalog.mjs --check');
-  console.log('  Disable hooks:    git config --unset core.hooksPath');
+  console.log('  Generate prompt catalog:  node scripts/generate-prompt-catalog.mjs');
+  console.log('  Check prompt catalog:     node scripts/generate-prompt-catalog.mjs --check');
+  console.log('  Generate snippet catalog: node scripts/generate-snippet-catalog.mjs');
+  console.log('  Check snippet catalog:    node scripts/generate-snippet-catalog.mjs --check');
+  console.log('  Disable hooks:            git config --unset core.hooksPath');
 }
 
 main();

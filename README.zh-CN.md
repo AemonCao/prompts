@@ -13,6 +13,7 @@ prompts/
   personal/
   multimodal/
 snippets/
+  <snippet-pack>/
 .agents/skills/prompt-archiver/
 ```
 
@@ -28,6 +29,15 @@ prompts/<category>/<slug>/
 
 - `examples.md`：示例用法
 - `tests.yaml`：轻量测试样例
+
+可复用片段包放在 `snippets/<slug>/` 下：
+
+```text
+snippets/<slug>/
+├── meta.yaml
+├── README.md
+└── README.zh-CN.md
+```
 
 ## 分类说明
 
@@ -84,6 +94,30 @@ node scripts/generate-prompt-catalog.mjs
 ```sh
 node scripts/generate-prompt-catalog.mjs --check
 ```
+
+## 片段目录
+
+片段包是可复用的参考资料、模板、示例或词汇表，可以在编写提示词时按需摘取。
+下面的目录会根据每个片段包的 `meta.yaml` 自动生成：
+
+```sh
+node scripts/generate-snippet-catalog.mjs
+```
+
+检查片段目录是否为最新：
+
+```sh
+node scripts/generate-snippet-catalog.mjs --check
+```
+
+<!-- snippet-catalog:start -->
+<!-- 本区块由 snippets/*/meta.yaml 自动生成，请不要手动编辑标记之间的内容。 -->
+
+| 名称 | 类型 | 状态 | 语言 | 更新日期 | 标签 | 介绍 | 片段 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 动画提示词词汇参考库 | 词汇表 | 草稿 | 双语 | 2026-06-02 | 动画, 动效, 界面, 提示词 | 用于描述 UI 动效、动画行为和交互反馈的可复用提示词词汇参考库。 | [README.zh-CN.md](snippets/animation-vocabulary/README.zh-CN.md) |
+
+<!-- snippet-catalog:end -->
 
 在新的 clone 中启用提交前自动更新目录：
 

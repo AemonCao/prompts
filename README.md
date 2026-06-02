@@ -13,6 +13,7 @@ prompts/
   personal/
   multimodal/
 snippets/
+  <snippet-pack>/
 .agents/skills/prompt-archiver/
 ```
 
@@ -28,6 +29,15 @@ Optional files:
 
 - `examples.md` for usage examples
 - `tests.yaml` for lightweight evaluation cases
+
+Reusable snippet packs live under `snippets/<slug>/`:
+
+```text
+snippets/<slug>/
+├── meta.yaml
+├── README.md
+└── README.zh-CN.md
+```
 
 ## Categories
 
@@ -85,13 +95,37 @@ To check whether the catalog is current:
 node scripts/generate-prompt-catalog.mjs --check
 ```
 
+## Snippet Catalog
+
+Snippet packs are reusable reference materials, templates, examples, or vocabularies that can be sampled when composing prompts.
+The catalog below is generated from each snippet pack's `meta.yaml`:
+
+```sh
+node scripts/generate-snippet-catalog.mjs
+```
+
+To check whether the snippet catalog is current:
+
+```sh
+node scripts/generate-snippet-catalog.mjs --check
+```
+
+<!-- snippet-catalog:start -->
+<!-- This section is generated from snippets/*/meta.yaml. Do not edit between the markers. -->
+
+| Name | Type | Status | Language | Updated | Tags | Summary | Snippet |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Animation Vocabulary | vocabulary | draft | bilingual | 2026-06-02 | animation, motion, ui, prompting | A reusable reference for describing UI motion, animation behavior, and interaction effects in prompts. | [README.md](snippets/animation-vocabulary/README.md) |
+
+<!-- snippet-catalog:end -->
+
 To enable automatic catalog updates before each commit in a new clone:
 
 ```sh
 node scripts/install-git-hooks.mjs
 ```
 
-The pre-commit hook reads staged `meta.yaml` files from the Git index, updates the generated catalog sections in both READMEs, and stages those README updates so the catalog matches the commit.
+The pre-commit hook reads staged `meta.yaml` files from the Git index, updates the generated catalog sections in both READMEs, and stages those README updates so the catalogs match the commit.
 
 <!-- prompt-catalog:start -->
 <!-- This section is generated from prompts/*/*/meta.yaml. Do not edit between the markers. -->
