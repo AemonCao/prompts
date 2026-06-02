@@ -1,6 +1,6 @@
 ---
 name: prompt-archiver
-description: Normalize pasted LLM prompts into clean Markdown, then classify, analyze, name, and store them in this prompt repository. Use when the user pastes a raw or loosely formatted prompt and wants it saved under prompts/coding, prompts/writing, prompts/business, prompts/personal, or prompts/multimodal with a prompt.md file and machine-readable metadata.
+description: Normalize pasted LLM prompts into clean Markdown, then classify, analyze, name, and store them in this prompt repository. Use when the user pastes a raw or loosely formatted prompt and wants it saved under prompts/coding, prompts/writing, prompts/business, prompts/personal, or prompts/multimodal with a <slug>.prompt.md file and machine-readable metadata.
 ---
 
 # Prompt Archiver
@@ -15,7 +15,7 @@ Use the current workspace root when it contains `prompts/`. Store entries at:
 
 ```text
 prompts/<category>/<slug>/
-├── prompt.md
+├── <slug>.prompt.md
 └── meta.yaml
 ```
 
@@ -33,7 +33,7 @@ If a prompt spans multiple categories, choose the category based on the primary 
 
 ## Markdown Standardization
 
-Before writing `prompt.md`, convert the user's pasted prompt into well-formed Markdown:
+Before writing `<slug>.prompt.md`, convert the user's pasted prompt into well-formed Markdown:
 
 - Preserve the original language, intent, constraints, ordering, examples, placeholders, and output requirements.
 - Do not translate, summarize, expand, invent requirements, or "improve" the prompt beyond formatting.
@@ -45,7 +45,7 @@ Before writing `prompt.md`, convert the user's pasted prompt into well-formed Ma
 
 ## Workflow
 
-1. Convert the pasted prompt to Markdown-normalized text for `prompt.md` using the rules above.
+1. Convert the pasted prompt to Markdown-normalized text for `<slug>.prompt.md` using the rules above.
 2. Analyze the prompt and produce:
    - category
    - English hyphen-case slug

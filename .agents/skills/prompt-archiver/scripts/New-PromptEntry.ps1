@@ -111,7 +111,7 @@ end {
 
     New-Item -ItemType Directory -Force -Path $targetPath | Out-Null
 
-    $promptPathOut = Join-Path $targetPath "prompt.md"
+    $promptPathOut = Join-Path $targetPath "$cleanSlug.prompt.md"
     $metaPathOut = Join-Path $targetPath "meta.yaml"
     $date = Get-Date -Format "yyyy-MM-dd"
     $id = "$Category.$($cleanSlug -replace '-', '_')"

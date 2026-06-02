@@ -506,10 +506,11 @@ function buildEntries(root, source) {
 
   for (const metaPath of metaFiles) {
     const [, pathCategory, slug] = metaPath.match(/^prompts\/([^/]+)\/([^/]+)\/meta\.yaml$/);
-    const promptPath = `prompts/${pathCategory}/${slug}/prompt.md`;
+    const promptFileName = `${slug}.prompt.md`;
+    const promptPath = `prompts/${pathCategory}/${slug}/${promptFileName}`;
 
     if (!promptExists(root, source, promptPath, indexFileSet)) {
-      fail(`${metaPath} has no sibling prompt.md in ${source}.`);
+      fail(`${metaPath} has no sibling ${promptFileName} in ${source}.`);
     }
 
     const content = readFileFromSource(root, source, metaPath);
@@ -545,6 +546,7 @@ function buildEntries(root, source) {
       tagsZh,
       language: meta.language,
       updated: meta.updated,
+      promptFileName,
       promptPath,
     });
   }
@@ -632,7 +634,7 @@ function generateCatalogSection(entries, locale) {
             entry.updated,
             entry.tagsZh.join(', '),
             entry.summaryZh,
-            `[prompt.md](${entry.promptPath})`,
+            `[${entry.promptFileName}](${entry.promptPath})`,
           ]
         : [
             entry.name,
@@ -642,7 +644,7 @@ function generateCatalogSection(entries, locale) {
             entry.updated,
             entry.tags.join(', '),
             entry.summary,
-            `[prompt.md](${entry.promptPath})`,
+            `[${entry.promptFileName}](${entry.promptPath})`,
           ];
 
       lines.push(`| ${row.map(escapeTableCell).join(' | ')} |`);
