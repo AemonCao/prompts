@@ -24,6 +24,10 @@ inputs:
     description: ''
 outputs:
   format: 'image'
+preview:
+  image: 'examples/preview-01.webp'
+  gallery:
+    - 'examples/preview-01.webp'
 language: 'en-US'
 created: '2026-06-02'
 updated: '2026-06-02'
