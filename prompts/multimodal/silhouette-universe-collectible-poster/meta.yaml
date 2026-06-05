@@ -1,0 +1,31 @@
+id: 'multimodal.silhouette_universe_collectible_poster'
+name: 'Silhouette Universe Collectible Poster'
+name_zh: '轮廓宇宙收藏版叙事海报'
+version: '1.0.0'
+status: 'draft'
+category: 'multimodal'
+summary: 'Generates a high-end collectible narrative poster where a theme-specific symbolic silhouette carries a complete visual universe.'
+summary_zh: '根据可变主题生成高审美收藏版叙事海报，让主题世界依附于最具象征性的主轮廓展开。'
+tags:
+  - 'multimodal'
+  - 'image-generation'
+  - 'poster-design'
+  - 'narrative-design'
+  - 'watercolor'
+  - 'silhouette'
+tags_zh:
+  - '多模态'
+  - '图像生成'
+  - '海报设计'
+  - '叙事设计'
+  - '水彩'
+  - '轮廓'
+inputs:
+  - name: 'theme'
+    required: true
+    description: ''
+outputs:
+  format: 'image'
+language: 'zh-CN'
+created: '2026-06-05'
+updated: '2026-06-05'
