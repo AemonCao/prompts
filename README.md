@@ -123,7 +123,7 @@ When you have a new original image:
    npm run preview -- "prompts/multimodal/$slug"
    ```
 
-   The script writes `examples/preview-01.webp`, `preview-02.webp`, and upserts `examples/examples.md`. It automatically fills fields it can infer, including image dimensions, preview file size, original file path and size, prompt version, and recognizable ChatGPT timestamp dates or notes. Existing non-empty fields are preserved.
+   The script writes `examples/preview-01.webp`, `preview-02.webp`, upserts `examples/examples.md`, and backfills the `preview:` block in `meta.yaml`. It automatically fills fields it can infer, including image dimensions, preview file size, original file path and size, prompt version, and recognizable ChatGPT timestamp dates or notes. Existing non-empty example fields are preserved.
 
    To overwrite existing previews, call the script directly:
 
@@ -131,7 +131,7 @@ When you have a new original image:
    node scripts/convert-previews.mjs "prompts/multimodal/$slug" --force
    ```
 
-4. Add preview metadata if the prompt should show thumbnails in the generated README catalog:
+4. Review the generated preview metadata if you want to reorder or hide catalog thumbnails:
 
    ```yaml
    preview:
@@ -140,6 +140,8 @@ When you have a new original image:
        - 'examples/preview-01.webp'
        - 'examples/preview-02.webp'
    ```
+
+   If you regenerate previews but want to keep a custom `preview:` block unchanged, pass `--no-meta` to `scripts/convert-previews.mjs`.
 
 5. Review `examples/examples.md` and fill the fields that cannot be inferred automatically, such as model, seed, manual notes, and an external `Original` link if the high-resolution file was uploaded to OSS or another location.
 
@@ -220,12 +222,12 @@ The pre-commit hook reads staged `meta.yaml` files from the Git index, updates t
 | Name | Preview | Status | Version | Language | Updated | Tags | Summary | Prompt |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Architectural Infographic Vector Poster |  | draft | 1.0.0 | zh-CN | 2026-06-02 | multimodal, image-editing, architecture, infographic, vector-art, poster-design | Converts an uploaded building photo into a precise front-elevation vector infographic poster with restrained annotations and measurement lines. | [architectural-infographic-vector-poster.prompt.md](prompts/multimodal/architectural-infographic-vector-poster/architectural-infographic-vector-poster.prompt.md) |
-| Architecture Fridge Magnet Icon |  | draft | 1.0.0 | zh-CN | 2026-06-02 | multimodal, image-editing, architecture, icon-design, fridge-magnet, souvenir | Extracts recognizable architectural features from a real photo and turns them into a simplified souvenir fridge-magnet-style icon. | [architecture-fridge-magnet-icon.prompt.md](prompts/multimodal/architecture-fridge-magnet-icon/architecture-fridge-magnet-icon.prompt.md) |
+| Architecture Fridge Magnet Icon | <img src="prompts/multimodal/architecture-fridge-magnet-icon/examples/preview-01.webp" alt="Architecture Fridge Magnet Icon preview 1" width="96"> | draft | 1.0.0 | zh-CN | 2026-06-02 | multimodal, image-editing, architecture, icon-design, fridge-magnet, souvenir | Extracts recognizable architectural features from a real photo and turns them into a simplified souvenir fridge-magnet-style icon. | [architecture-fridge-magnet-icon.prompt.md](prompts/multimodal/architecture-fridge-magnet-icon/architecture-fridge-magnet-icon.prompt.md) |
 | Clumsy MS Paint Redraw |  | draft | 1.0.0 | en-US | 2026-06-02 | multimodal, image-editing, image-generation, style-transfer, ms-paint | Redraws a reference image in an intentionally clumsy, scribbly MS Paint style with a mouse-drawn pixel-by-pixel feel. | [clumsy-ms-paint-redraw.prompt.md](prompts/multimodal/clumsy-ms-paint-redraw/clumsy-ms-paint-redraw.prompt.md) |
 | Dopamine Abstract Curve Vector Art |  | draft | 1.0.0 | zh-CN | 2026-06-02 | multimodal, image-generation, vector-art, abstract-art, dopamine-color, minimalism | Creates minimalist dopamine-colored vector art with abstract lines, curved shapes, and irregular layered color blocks on white. | [dopamine-abstract-curve-vector-art.prompt.md](prompts/multimodal/dopamine-abstract-curve-vector-art/dopamine-abstract-curve-vector-art.prompt.md) |
 | Image Forensic Reconstruction Prompt |  | draft | 1.0.0 | zh-CN | 2026-06-02 | multimodal, image-analysis, image-generation, prompt-engineering, photography, artifact-analysis | Analyzes a reference image's photographic flaws, compression artifacts, and casual capture cues to produce model-ready image generation prompts. | [image-forensic-reconstruction-prompt.prompt.md](prompts/multimodal/image-forensic-reconstruction-prompt/image-forensic-reconstruction-prompt.prompt.md) |
 | Korean Naive Flat Photo Redraw |  | draft | 1.0.0 | zh-CN | 2026-06-02 | multimodal, image-editing, style-transfer, korean-illustration, flat-design, naive-art | Redraws a photo in a cute Korean naive flat illustration style with rough broken black outlines, saturated color blocks, and a bright blue background. | [korean-naive-flat-photo-redraw.prompt.md](prompts/multimodal/korean-naive-flat-photo-redraw/korean-naive-flat-photo-redraw.prompt.md) |
-| Messy Chat Sticker Pack |  | draft | 1.0.0 | zh-CN | 2026-06-01 | multimodal, image-generation, stickers, chat-stickers, style-reference, zh-CN | Generates a 16-panel Chinese chat sticker pack from reference images in a deliberately crude MS Paint mouse-drawn style. | [messy-chat-sticker-pack.prompt.md](prompts/multimodal/messy-chat-sticker-pack/messy-chat-sticker-pack.prompt.md) |
+| Messy Chat Sticker Pack | <img src="prompts/multimodal/messy-chat-sticker-pack/examples/preview-01.webp" alt="Messy Chat Sticker Pack preview 1" width="72"> <img src="prompts/multimodal/messy-chat-sticker-pack/examples/preview-02.webp" alt="Messy Chat Sticker Pack preview 2" width="72"> | draft | 1.0.0 | zh-CN | 2026-06-01 | multimodal, image-generation, stickers, chat-stickers, style-reference, zh-CN | Generates a 16-panel Chinese chat sticker pack from reference images in a deliberately crude MS Paint mouse-drawn style. | [messy-chat-sticker-pack.prompt.md](prompts/multimodal/messy-chat-sticker-pack/messy-chat-sticker-pack.prompt.md) |
 | Minimalist Architectural Typography Poster | <img src="prompts/multimodal/minimalist-architectural-typography-poster/examples/preview-01.webp" alt="Minimalist Architectural Typography Poster preview 1" width="96"> | draft | 1.0.0 | zh-CN | 2026-06-02 | multimodal, image-editing, architecture, poster-design, typography, minimalism | Turns a reference building into a refined vertical architectural poster with oversized background typography and restrained editorial annotations. | [minimalist-architectural-typography-poster.prompt.md](prompts/multimodal/minimalist-architectural-typography-poster/minimalist-architectural-typography-poster.prompt.md) |
 | Monochrome Chinese Minimalist Vector Silhouette |  | draft | 1.0.0 | zh-CN | 2026-06-02 | multimodal, image-generation, vector-art, chinese-aesthetic, minimalism, monochrome, silhouette | Creates elegant monochrome Chinese minimalist vector art with simplified silhouettes and subtle top-dark-to-bottom-light gradients. | [monochrome-chinese-minimalist-vector-silhouette.prompt.md](prompts/multimodal/monochrome-chinese-minimalist-vector-silhouette/monochrome-chinese-minimalist-vector-silhouette.prompt.md) |
 | Noise Gradient Guochao Illustration |  | draft | 1.0.0 | zh-CN | 2026-06-02 | multimodal, image-generation, image-editing, style-transfer, guochao, gradient, vector-art | Transforms an image into a geometric guochao vector illustration with soft cyan-orange macaron gradients and a gentle hand-drawn feel. | [noise-gradient-guochao-illustration.prompt.md](prompts/multimodal/noise-gradient-guochao-illustration/noise-gradient-guochao-illustration.prompt.md) |

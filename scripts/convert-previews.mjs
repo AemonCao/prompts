@@ -15,6 +15,7 @@ Options:
   --width=1280     Maximum output width. Defaults to 1280.
   --quality=82     WebP quality, from 1 to 100. Defaults to 82.
   --force          Overwrite existing preview-*.webp files.
+  --no-meta        Do not update the prompt meta.yaml preview block.
   --help           Show this help text.
 `;
 }
@@ -47,6 +48,7 @@ function parseArgs(argv) {
     width: DEFAULT_WIDTH,
     quality: DEFAULT_QUALITY,
     force: false,
+    updateMeta: true,
     help: false,
   };
 
@@ -57,6 +59,8 @@ function parseArgs(argv) {
       options.help = true;
     } else if (arg === '--force') {
       options.force = true;
+    } else if (arg === '--no-meta') {
+      options.updateMeta = false;
     } else if (arg.startsWith('--width=')) {
       options.width = parseInteger(arg.slice('--width='.length), '--width');
     } else if (arg === '--width') {
@@ -360,6 +364,90 @@ function upsertExamplesDocument(examplesDir, outputs, promptVersion) {
   return 'created';
 }
 
+function quoteYamlSingle(value) {
+  return `'${value.replaceAll("'", "''")}'`;
+}
+
+function isTopLevelKey(line, key = null) {
+  if (line.startsWith(' ') || line.startsWith('\t') || line.trim() === '' || line.trimStart().startsWith('#')) {
+    return false;
+  }
+
+  const match = line.match(/^([A-Za-z0-9_-]+):/);
+  return key === null ? Boolean(match) : match?.[1] === key;
+}
+
+function findTopLevelKey(lines, key) {
+  return lines.findIndex((line) => isTopLevelKey(line, key));
+}
+
+function findTopLevelBlockEnd(lines, startIndex) {
+  for (let index = startIndex + 1; index < lines.length; index += 1) {
+    if (isTopLevelKey(lines[index])) {
+      return index;
+    }
+  }
+
+  return lines.length;
+}
+
+function formatPreviewMetadata(previewPaths) {
+  const lines = [
+    'preview:',
+    `  image: ${quoteYamlSingle(previewPaths[0])}`,
+    '  gallery:',
+  ];
+
+  for (const previewPath of previewPaths) {
+    lines.push(`    - ${quoteYamlSingle(previewPath)}`);
+  }
+
+  return lines;
+}
+
+function upsertPreviewMetadata(promptDir, outputs) {
+  const metaPath = path.join(promptDir, 'meta.yaml');
+  if (!fs.existsSync(metaPath)) {
+    return 'skipped';
+  }
+
+  const previewPaths = outputs.map((output) => `examples/${output.fileName}`);
+  if (previewPaths.length === 0) {
+    return 'skipped';
+  }
+
+  const current = fs.readFileSync(metaPath, 'utf8').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const lines = current.trimEnd().split('\n');
+  const previewBlock = formatPreviewMetadata(previewPaths);
+  const previewIndex = findTopLevelKey(lines, 'preview');
+  let nextLines;
+
+  if (previewIndex !== -1) {
+    const previewEnd = findTopLevelBlockEnd(lines, previewIndex);
+    nextLines = [
+      ...lines.slice(0, previewIndex),
+      ...previewBlock,
+      ...lines.slice(previewEnd),
+    ];
+  } else {
+    const outputsIndex = findTopLevelKey(lines, 'outputs');
+    const insertIndex = outputsIndex === -1 ? lines.length : findTopLevelBlockEnd(lines, outputsIndex);
+    nextLines = [
+      ...lines.slice(0, insertIndex),
+      ...previewBlock,
+      ...lines.slice(insertIndex),
+    ];
+  }
+
+  const desired = `${nextLines.join('\n').trimEnd()}\n`;
+  if (desired === current) {
+    return 'unchanged';
+  }
+
+  fs.writeFileSync(metaPath, desired, 'utf8');
+  return previewIndex === -1 ? 'created' : 'updated';
+}
+
 async function convertImage(sourcePath, targetPath, options) {
   await sharp(sourcePath)
     .rotate()
@@ -433,6 +521,19 @@ async function main() {
     console.log(`Created ${path.relative(process.cwd(), path.join(paths.examplesDir, 'examples.md'))}`);
   } else {
     console.log(`Updated ${path.relative(process.cwd(), path.join(paths.examplesDir, 'examples.md'))}`);
+  }
+
+  if (options.updateMeta) {
+    const metaStatus = upsertPreviewMetadata(paths.promptDir, outputs);
+    const relativeMetaPath = path.relative(process.cwd(), path.join(paths.promptDir, 'meta.yaml'));
+
+    if (metaStatus === 'created') {
+      console.log(`Added preview metadata to ${relativeMetaPath}`);
+    } else if (metaStatus === 'updated') {
+      console.log(`Updated preview metadata in ${relativeMetaPath}`);
+    } else if (metaStatus === 'unchanged') {
+      console.log(`Preview metadata already current in ${relativeMetaPath}`);
+    }
   }
 }
 
