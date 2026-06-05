@@ -322,9 +322,13 @@ function parseNestedBlock(lines, startIndex, filePath) {
   return parseMap(lines, startIndex, filePath);
 }
 
-function parseList(lines, startIndex, filePath) {
+function parseList(lines, startIndex, filePath, expectedIndent = 2) {
   const list = [];
   let index = startIndex;
+  const indentPrefix = ' '.repeat(expectedIndent);
+  const itemPrefix = `${indentPrefix}- `;
+  const childIndent = expectedIndent + 2;
+  const childPrefix = ' '.repeat(childIndent);
 
   while (index < lines.length) {
     const line = lines[index];
@@ -334,15 +338,15 @@ function parseList(lines, startIndex, filePath) {
       continue;
     }
 
-    if (!line.startsWith('  ')) {
+    if (!line.startsWith(indentPrefix)) {
       break;
     }
 
-    if (!line.startsWith('  - ')) {
+    if (!line.startsWith(itemPrefix)) {
       fail(`${filePath}:${index + 1} is not a supported list item.`);
     }
 
-    const itemText = line.slice(4);
+    const itemText = line.slice(itemPrefix.length);
     const first = itemText.match(/^([A-Za-z0-9_-]+):(\s+.*)$/);
     if (first) {
       const item = {};
@@ -357,11 +361,11 @@ function parseList(lines, startIndex, filePath) {
           continue;
         }
 
-        if (!childLine.startsWith('    ')) {
+        if (!childLine.startsWith(childPrefix)) {
           break;
         }
 
-        const child = parseKeyValue(childLine, 4, filePath, index + 1);
+        const child = parseKeyValue(childLine, childIndent, filePath, index + 1);
         if (child.rest.trim() === '') {
           fail(`${filePath}:${index + 1} uses nested objects, which are not supported.`);
         }
@@ -402,6 +406,14 @@ function parseMap(lines, startIndex, filePath) {
 
     const entry = parseKeyValue(line, 2, filePath, index + 1);
     if (entry.rest.trim() === '') {
+      const nestedListIndex = nextContentLine(lines, index + 1);
+      if (nestedListIndex !== -1 && lines[nestedListIndex].startsWith('    - ')) {
+        const nestedList = parseList(lines, index + 1, filePath, 4);
+        object[entry.key] = nestedList.value;
+        index = nestedList.nextIndex;
+        continue;
+      }
+
       fail(`${filePath}:${index + 1} uses nested maps, which are not supported.`);
     }
 
@@ -498,6 +510,66 @@ function validateStringList(meta, field, filePath) {
   });
 }
 
+function validatePreviewPath(value, field, filePath) {
+  if (typeof value !== 'string' || value.trim() === '') {
+    fail(`${filePath} has an invalid "${field}" preview path.`);
+  }
+
+  if (value.includes('\\')) {
+    fail(`${filePath} uses backslashes in "${field}". Use POSIX-style paths such as examples/preview-01.webp.`);
+  }
+
+  if (value.startsWith('/') || value.split('/').some((part) => part === '..' || part === '')) {
+    fail(`${filePath} has an unsafe "${field}" preview path: ${value}`);
+  }
+
+  if (path.posix.extname(value).toLowerCase() !== '.webp') {
+    fail(`${filePath} preview path "${value}" must point to a .webp file.`);
+  }
+
+  return value;
+}
+
+function previewImagesFromMeta(root, source, meta, promptBasePath, metaPath, indexFileSet) {
+  if (!Object.hasOwn(meta, 'preview')) {
+    return [];
+  }
+
+  if (meta.preview === null || typeof meta.preview !== 'object' || Array.isArray(meta.preview)) {
+    fail(`${metaPath} has an invalid "preview" block.`);
+  }
+
+  const previewPaths = [];
+
+  if (Object.hasOwn(meta.preview, 'image')) {
+    previewPaths.push(validatePreviewPath(meta.preview.image, 'preview.image', metaPath));
+  }
+
+  if (Object.hasOwn(meta.preview, 'gallery')) {
+    if (!Array.isArray(meta.preview.gallery)) {
+      fail(`${metaPath} has an invalid "preview.gallery" list.`);
+    }
+
+    for (const [index, galleryPath] of meta.preview.gallery.entries()) {
+      previewPaths.push(validatePreviewPath(galleryPath, `preview.gallery[${index}]`, metaPath));
+    }
+  }
+
+  if (previewPaths.length === 0) {
+    fail(`${metaPath} has a "preview" block but no preview.image or preview.gallery entries.`);
+  }
+
+  const uniquePreviewPaths = [...new Set(previewPaths)];
+  for (const previewPath of uniquePreviewPaths) {
+    const repoPath = `${promptBasePath}/${previewPath}`;
+    if (!promptExists(root, source, repoPath, indexFileSet)) {
+      fail(`${metaPath} references missing preview image: ${repoPath}`);
+    }
+  }
+
+  return uniquePreviewPaths.map((previewPath) => `${promptBasePath}/${previewPath}`);
+}
+
 function buildEntries(root, source) {
   const metaFiles = source === 'index' ? listIndexMetaFiles(root) : listWorktreeMetaFiles(root);
   const indexFileSet = source === 'index' ? new Set(listIndexFiles(root)) : null;
@@ -506,8 +578,9 @@ function buildEntries(root, source) {
 
   for (const metaPath of metaFiles) {
     const [, pathCategory, slug] = metaPath.match(/^prompts\/([^/]+)\/([^/]+)\/meta\.yaml$/);
+    const promptBasePath = `prompts/${pathCategory}/${slug}`;
     const promptFileName = `${slug}.prompt.md`;
-    const promptPath = `prompts/${pathCategory}/${slug}/${promptFileName}`;
+    const promptPath = `${promptBasePath}/${promptFileName}`;
 
     if (!promptExists(root, source, promptPath, indexFileSet)) {
       fail(`${metaPath} has no sibling ${promptFileName} in ${source}.`);
@@ -522,6 +595,7 @@ function buildEntries(root, source) {
 
     const tags = validateStringList(meta, 'tags', metaPath);
     const tagsZh = validateStringList(meta, 'tags_zh', metaPath);
+    const previewImages = previewImagesFromMeta(root, source, meta, promptBasePath, metaPath, indexFileSet);
 
     if (meta.category !== pathCategory) {
       fail(`${metaPath} has category "${meta.category}" but lives under "${pathCategory}".`);
@@ -548,6 +622,7 @@ function buildEntries(root, source) {
       updated: meta.updated,
       promptFileName,
       promptPath,
+      previewImages,
     });
   }
 
@@ -567,6 +642,27 @@ function escapeTableCell(value) {
     .replaceAll('|', '\\|')
     .replaceAll('\n', '<br>')
     .trim();
+}
+
+function escapeHtmlAttribute(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
+}
+
+function formatPreviewCell(entry, locale) {
+  if (entry.previewImages.length === 0) {
+    return '';
+  }
+
+  const width = entry.previewImages.length === 1 ? 96 : 72;
+  const altBase = locale === 'zh' ? entry.nameZh : entry.name;
+
+  return entry.previewImages
+    .map((imagePath, index) => `<img src="${escapeHtmlAttribute(imagePath)}" alt="${escapeHtmlAttribute(`${altBase} preview ${index + 1}`)}" width="${width}">`)
+    .join(' ');
 }
 
 function categoryTitle(category, locale) {
@@ -616,36 +712,68 @@ function generateCatalogSection(entries, locale) {
   for (const category of categoriesInUse(entries)) {
     lines.push(`### ${categoryTitle(category, locale)}`, '');
 
-    if (locale === 'zh') {
+    const includePreview = category === 'multimodal';
+
+    if (locale === 'zh' && includePreview) {
+      lines.push('| 名称 | 预览 | 状态 | 版本 | 语言 | 更新日期 | 标签 | 介绍 | 提示词 |');
+    } else if (locale === 'zh') {
       lines.push('| 名称 | 状态 | 版本 | 语言 | 更新日期 | 标签 | 介绍 | 提示词 |');
+    } else if (includePreview) {
+      lines.push('| Name | Preview | Status | Version | Language | Updated | Tags | Summary | Prompt |');
     } else {
       lines.push('| Name | Status | Version | Language | Updated | Tags | Summary | Prompt |');
     }
 
-    lines.push('| --- | --- | --- | --- | --- | --- | --- | --- |');
+    lines.push(includePreview
+      ? '| --- | --- | --- | --- | --- | --- | --- | --- | --- |'
+      : '| --- | --- | --- | --- | --- | --- | --- | --- |');
 
     for (const entry of entries.filter((candidate) => candidate.category === category)) {
       const row = locale === 'zh'
-        ? [
-            entry.nameZh,
-            displayStatus(entry.status, locale),
-            entry.version,
-            entry.language,
-            entry.updated,
-            entry.tagsZh.join(', '),
-            entry.summaryZh,
-            `[${entry.promptFileName}](${entry.promptPath})`,
-          ]
-        : [
-            entry.name,
-            displayStatus(entry.status, locale),
-            entry.version,
-            entry.language,
-            entry.updated,
-            entry.tags.join(', '),
-            entry.summary,
-            `[${entry.promptFileName}](${entry.promptPath})`,
-          ];
+        ? includePreview
+          ? [
+              entry.nameZh,
+              formatPreviewCell(entry, locale),
+              displayStatus(entry.status, locale),
+              entry.version,
+              entry.language,
+              entry.updated,
+              entry.tagsZh.join(', '),
+              entry.summaryZh,
+              `[${entry.promptFileName}](${entry.promptPath})`,
+            ]
+          : [
+              entry.nameZh,
+              displayStatus(entry.status, locale),
+              entry.version,
+              entry.language,
+              entry.updated,
+              entry.tagsZh.join(', '),
+              entry.summaryZh,
+              `[${entry.promptFileName}](${entry.promptPath})`,
+            ]
+        : includePreview
+          ? [
+              entry.name,
+              formatPreviewCell(entry, locale),
+              displayStatus(entry.status, locale),
+              entry.version,
+              entry.language,
+              entry.updated,
+              entry.tags.join(', '),
+              entry.summary,
+              `[${entry.promptFileName}](${entry.promptPath})`,
+            ]
+          : [
+              entry.name,
+              displayStatus(entry.status, locale),
+              entry.version,
+              entry.language,
+              entry.updated,
+              entry.tags.join(', '),
+              entry.summary,
+              `[${entry.promptFileName}](${entry.promptPath})`,
+            ];
 
       lines.push(`| ${row.map(escapeTableCell).join(' | ')} |`);
     }

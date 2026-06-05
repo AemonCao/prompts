@@ -48,3 +48,5 @@ build/
 out/
 coverage/
 
+# Local high-resolution generation outputs
+prompts/*/*/examples/source/
