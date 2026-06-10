@@ -1,0 +1,31 @@
+id: 'multimodal.source_engine_game_screenshot_redraw'
+name: 'Source Engine Game Screenshot Redraw'
+name_zh: '早期 Source 引擎游戏截图重制'
+version: '1.0.0'
+status: 'draft'
+category: 'multimodal'
+summary: 'Recreates an input photo as an early Source Engine-style 3D game screenshot while preserving composition and scene layout.'
+summary_zh: '将输入照片重制为早期 Source 引擎风格的 3D 游戏截图，并保留构图、视角和场景布局。'
+tags:
+  - 'multimodal'
+  - 'image-editing'
+  - 'style-transfer'
+  - 'game-art'
+  - 'source-engine'
+  - 'low-poly'
+tags_zh:
+  - '多模态'
+  - '图像编辑'
+  - '风格转换'
+  - '游戏美术'
+  - '起源引擎'
+  - '低多边形'
+inputs:
+  - name: 'photo'
+    required: true
+    description: ''
+outputs:
+  format: 'image'
+language: 'zh-CN'
+created: '2026-06-11'
+updated: '2026-06-11'
