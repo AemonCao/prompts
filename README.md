@@ -205,6 +205,13 @@ The pre-commit hook reads staged `meta.yaml` files from the Git index, updates t
 <!-- prompt-catalog:start -->
 <!-- This section is generated from prompts/*/*/meta.yaml. Do not edit between the markers. -->
 
+### Coding
+
+| Name | Status | Version | Language | Updated | Tags | Summary | Prompt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Siri Assistant System Prompt | draft | 1.0.0 | en-US | 2026-06-11 | assistant-agent, system-prompt, tool-use, siri, entities | Defines Siri-style assistant behavior, entity handling, tool use, response formatting, and guardrails for a tool-enabled agent. | [siri-assistant-system-prompt.prompt.md](prompts/coding/siri-assistant-system-prompt/siri-assistant-system-prompt.prompt.md) |
+| Siri Assistant System Prompt Chinese | draft | 1.0.0 | zh-CN | 2026-06-11 | assistant-agent, system-prompt, tool-use, siri, entities, chinese | Chinese version of the Siri-style assistant system prompt covering behavior, entity handling, tool use, response formatting, and guardrails. | [siri-assistant-system-prompt-zh.prompt.md](prompts/coding/siri-assistant-system-prompt-zh/siri-assistant-system-prompt-zh.prompt.md) |
+
 ### Business
 
 | Name | Status | Version | Language | Updated | Tags | Summary | Prompt |

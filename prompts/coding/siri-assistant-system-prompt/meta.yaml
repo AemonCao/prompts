@@ -1,0 +1,38 @@
+id: 'coding.siri_assistant_system_prompt'
+name: 'Siri Assistant System Prompt'
+name_zh: 'Siri 助理系统提示词'
+version: '1.0.0'
+status: 'draft'
+category: 'coding'
+summary: 'Defines Siri-style assistant behavior, entity handling, tool use, response formatting, and guardrails for a tool-enabled agent.'
+summary_zh: '定义工具型 Siri 风格助理的行为、实体处理、工具使用、响应格式和护栏规则。'
+tags:
+  - 'assistant-agent'
+  - 'system-prompt'
+  - 'tool-use'
+  - 'siri'
+  - 'entities'
+tags_zh:
+  - '助理代理'
+  - '系统提示词'
+  - '工具使用'
+  - 'Siri'
+  - '实体'
+inputs:
+  - name: 'user request'
+    required: true
+    description: ''
+  - name: 'device state'
+    required: true
+    description: ''
+  - name: 'entities'
+    required: true
+    description: ''
+  - name: 'tool results'
+    required: true
+    description: ''
+outputs:
+  format: 'assistant response or tool call plan'
+language: 'en-US'
+created: '2026-06-11'
+updated: '2026-06-11'

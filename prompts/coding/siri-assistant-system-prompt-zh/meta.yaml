@@ -1,0 +1,40 @@
+id: 'coding.siri_assistant_system_prompt_zh'
+name: 'Siri Assistant System Prompt Chinese'
+name_zh: 'Siri 助理系统提示词（中文）'
+version: '1.0.0'
+status: 'draft'
+category: 'coding'
+summary: 'Chinese version of the Siri-style assistant system prompt covering behavior, entity handling, tool use, response formatting, and guardrails.'
+summary_zh: 'Siri 风格助理系统提示词的中文版本，覆盖行为、实体处理、工具使用、响应格式和护栏规则。'
+tags:
+  - 'assistant-agent'
+  - 'system-prompt'
+  - 'tool-use'
+  - 'siri'
+  - 'entities'
+  - 'chinese'
+tags_zh:
+  - '助理代理'
+  - '系统提示词'
+  - '工具使用'
+  - 'Siri'
+  - '实体'
+  - '中文'
+inputs:
+  - name: '用户请求'
+    required: true
+    description: ''
+  - name: '设备状态'
+    required: true
+    description: ''
+  - name: '实体'
+    required: true
+    description: ''
+  - name: '工具结果'
+    required: true
+    description: ''
+outputs:
+  format: '助理响应或工具调用计划'
+language: 'zh-CN'
+created: '2026-06-11'
+updated: '2026-06-11'
